@@ -30,7 +30,7 @@ void jack_bauer(void)
 					else
 					{
 						_putchar(min1 + '0');
-						_putchar(min2 +'0');
+						_putchar(min2 + '0');
 						_putchar(':');
 						_putchar(sec1 + '0');
 						_putchar(sec2 + '0');
