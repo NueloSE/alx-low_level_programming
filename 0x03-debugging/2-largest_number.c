@@ -2,12 +2,15 @@
 
 /**
  * largest_number - returns the largest of 3 numbers
+ * @a: 1st number
+ * @b: 2nd number
+ * @c: 3rd nunber
  * Return: largest number
  */
 
 int largest_number(int a, int b, int c)
 {
-    int largest = a;
+	int largest = a;
 
 	if (b > largest)
 		largest = b;
