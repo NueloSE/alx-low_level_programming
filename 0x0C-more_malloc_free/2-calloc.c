@@ -9,15 +9,18 @@
 
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	void *ptr;
-	unsigned int len = nmemb * size;
+	char *array;
+	unsigned int len = nmemb * size, i;
 
 	if (len == 0)
 		return (NULL);
 
-	ptr = malloc(len);
+	array = malloc(len);
 
-	if (ptr == NULL)
+	if (array == NULL)
 		return (NULL);
-	return (ptr);
+	for (i = 0; i < len; i++)
+		array[i] = 0;
+
+	return (array);
 }
