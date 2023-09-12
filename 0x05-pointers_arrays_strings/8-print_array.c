@@ -11,6 +11,10 @@ void print_array(int *a, int n)
 {
 	int i = 0;
 
+	if (n < 0)
+		return;
+	n -= 1;
+
 	for (; i <= n; i++)
 	{
 		if (i != n)
