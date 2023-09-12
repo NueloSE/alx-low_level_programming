@@ -14,11 +14,6 @@ void print_dog(struct dog *d)
 		return;
 	if (d->name == NULL)
 		d->name = empty;
-	if (d->age == '\0')
-	{
-		printf("Name: %s\nAge: %s\nOwner: %s\n", (*d).name, empty, (*d).owner);
-		return;
-	}
 	if (d->owner == NULL)
 		d->owner = empty;
 
