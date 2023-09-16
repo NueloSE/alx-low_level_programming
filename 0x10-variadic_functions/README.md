@@ -5,6 +5,12 @@
 -	How to use va_start, va_arg and va_end macros
 -	Why and how to use the const type qualifier
 
+### Requirements
+-	All files should be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
+-	Example: use the following to run Task 1.
+ 
+	gcc -Wall -pedantic -Werror -Wextra -std=gnu89 1-main.c 1-print_numbers.c -o b
+
 ### Mandatory Tasks
 | Task | Description |
 | --- | --- |
