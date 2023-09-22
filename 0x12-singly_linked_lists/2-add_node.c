@@ -25,17 +25,24 @@ unsigned int _strlen(const char *s)
 list_t *add_node(list_t **head, const char *str)
 {
 	list_t *newnode;
+	const char *dup;
 	unsigned int str_len;
 
 	newnode = malloc(sizeof(struct list_s));
 
 	if (newnode == NULL)
 		return (NULL);
+	dup = strdup(str);
+	if (dup == NULL)
+	{
+		free(newnode);
+		return (NULL);
+	}
 	str_len = _strlen(str);
 	newnode->str = strdup(str);
 	newnode->len = str_len;
 	newnode->next = *head;
 	*head = newnode;
 
-	return (*head);
+	return (newnode);
 }
