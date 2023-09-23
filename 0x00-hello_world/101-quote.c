@@ -10,7 +10,8 @@
 
 void custom_print(const char *str)
 {
-	syscall(SYS_write, STDERR_FILENO, str, strlen(str));
+	if (str != NULL)
+		syscall(SYS_write, STDERR_FILENO, str, strlen(str));
 }
 
 /**
@@ -20,8 +21,9 @@ void custom_print(const char *str)
 
 int main(void)
 {
-	const char *text = "and that piece of art is "
-		"useful\" - Dora korpar, 2015-10-19\n";
+	const char *text;
+
+	text = "and that piece of art is useful\" - Dora korpar, 2015-10-19\n";
 
 	custom_print(text);
 	return (1);
