@@ -10,7 +10,7 @@ int main(int ac, char **av)
 {
 	int fd1, fd2, n_read;
 	char *write_err = "Error: Can't write to ";
-	char *close_err = "Error: Can't close fd ", *buffer[BUFF_SIZE];
+	char buffer[BUFF_SIZE], *close_err = "Error: Can't close fd ";
 
 	if (ac != 3)
 	{
@@ -31,7 +31,7 @@ int main(int ac, char **av)
 	}
 	while ((n_read = read(fd1, buffer, BUFF_SIZE)) > 0)
 	{
-		if ((write(fd2, buffer, BUFF_SIZE)) < BUFF_SIZE)
+		if ((write(fd2, buffer, n_read)) < n_read)
 		{
 			dprintf(STDERR_FILENO, "%s%s\n", write_err, av[2]);
 			exit(99);
