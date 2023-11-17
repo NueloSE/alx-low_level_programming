@@ -21,7 +21,7 @@ int _sqrt_recursion(int n)
 
 int compute_sqrt(int num, int min, int max)
 {
-	int guess;
+	long guess;
 
 	if (max < min)
 		return (-1);
