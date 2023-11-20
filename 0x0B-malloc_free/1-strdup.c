@@ -13,30 +13,30 @@ char *_strdup(char *str)
 
 	if (str == NULL)
 		return (NULL);
-	size = sizeof(str) + 1;
+	size = len(str);
 	str_dup = malloc(size);
 
 	if (str_dup == NULL)
 		return (NULL);
-	
 	for (i = 0; i < size; i++)
 	{
 		str_dup[i] = str[i];
 	}
+	str_dup[i] = '\0';
 	return (str_dup);
 }
 
 /**
- * _strlen - compute the length of a string
+ * len - computes the length of a string
  * @str: the string
- * Return: length of string on success
+ * Return: the length of the string
+*/
 
-
-int _strlen(char *str)
+int len(char *str)
 {
-	int len;
+	int i;
 
-	for (len = 0; str[len]; len++)
+	for (i = 0; str[i]; i++)
 		;
-	return (len);
-}*/
+	return (i);
+}

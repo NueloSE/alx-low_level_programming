@@ -18,20 +18,33 @@ char *str_concat(char *s1, char *s2)
 	if (s2 == NULL)
 		s2 = "";
 
-	string = malloc(sizeof(s1) + sizeof(s2));
+	i = len(s1) - 1;
+	j = len(s2) - 1;
+
+	string = malloc((i + j) + 1);
 	if (string == NULL)
 		return (NULL);
 
 	for (i = 0; s1[i]; i++)
-	{
 		string[i] = s1[i];
-	}
-
 	for (j = 0; s2[j]; i++, j++)
-	{
 		string[i] = s2[j];
-	}
 	string[i] = '\0';
 
 	return (string);
+}
+
+/**
+ * len - computes the length of a string
+ * @str: the string
+ * Return: the length of the string
+*/
+
+int len(char *str)
+{
+	int i;
+
+	for (i = 0; str[i]; i++)
+		;
+	return (i);
 }
