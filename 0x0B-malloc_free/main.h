@@ -1,6 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define MAX_WORD_COUNT 20
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,6 +15,8 @@ void free_grid(int **, int);
 char *argstostr(int ac, char **);
 char **strtow(char *str);
 
+/****************UTILITIES********************/
 int len(char *str);
+char *_strcpy(char *src, char *des);
 
 #endif /* MAIN_H */
