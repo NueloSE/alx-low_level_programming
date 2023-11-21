@@ -12,9 +12,11 @@ char *argstostr(int ac, char **av)
 	int i, size = 0, position = 0;
 	char *word;
 
+	if (ac == 0 || av == NULL)
+		return (NULL);
 	for (i = 0; i < ac; i++)
 		size += len(av[i]);
-	word = malloc(size + ac);
+	word = malloc(size + ac + 1);
 	if (word == NULL)
 		return (NULL);
 	for (i = 0; i < ac; i++)
@@ -22,6 +24,7 @@ char *argstostr(int ac, char **av)
 		_strcpy(av[i], word + position);
 		position += (len(av[i]) + 1);
 	}
+	word[position] = '\0';
 	return (word);
 }
 
