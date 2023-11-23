@@ -14,4 +14,6 @@ int *array_range(int, int);
 void *_realloc(void *ptr, unsigned int, unsigned int);
 
 
+int _strlen(char *);
+
 #endif /*MAIN_H*/
