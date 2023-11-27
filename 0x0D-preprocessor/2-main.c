@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+/**
+ * main - Entry point the program that prints the name of the file it was compiled from
+ * Return: 0 on success. Otherwise -1
+*/
+
+int main()
+{
+	printf("%s\n", __FILE__);
+	return (0);
+}
