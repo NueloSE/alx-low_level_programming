@@ -10,46 +10,36 @@
 
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	/*dog_t *mydog, *dog_name, *owner_name;
-	int i;
-
-	mydog = malloc(sizeof(dog_t));
-	if (mydog == NULL)
-		return (NULL);
-	
-	dog_name = malloc(sizeof(name));
-	if (dog_name == NULL)
-	{
-		free(mydog);
-		return (NULL);
-	}
-	for (i = 0; name[i]; i++)
-		dog_name[i] = name[i];
-	dog_name[i] = '\0';
-	mydog->name = dog_name;
-
-	owner_name = malloc(sizeof(owner));
-	if (owner_name == NULL)
-	{
-		free(dog_name);
-		free(mydog);
-		return (NULL);
-	}
-	for (i = 0; owner[i]; i++)
-		owner_name[i] = owner[i];
-	owner_name[i] = '\0';
-	mydog->owner = owner_name;
-
-	mydog->age = age;
-
-	return (mydog);*/
-
 	dog_t *mydog = malloc(sizeof(dog_t));
-	
+
 	if (mydog == NULL)
 		return (NULL);
-	mydog->name = strdup(name);
-	mydog->owner = strdup(owner);
+	mydog->name = _strdup(name);
+	mydog->owner = _strdup(owner);
 	mydog->age = age;
 	return (mydog);
+}
+
+/**
+ * _strdup - duplicates a string passed
+ * @src: the source string
+ * Return: pointer to new string
+*/
+
+char *_strdup(char *src)
+{
+	int i, len = 0;
+	char *des;
+
+	for (; src[len]; len++)
+		;
+	des = malloc(len + 1);
+	if (des == NULL)
+		return (NULL);
+	for (i = 0; src[i]; i++)
+	{
+		des[i] = src[i];
+	}
+	des[i] = '\0';
+	return (des);
 }
