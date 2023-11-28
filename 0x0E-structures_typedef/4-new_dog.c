@@ -33,7 +33,7 @@ char *_strdup(char *src)
 
 	for (; src[len]; len++)
 		;
-	des = malloc(len);
+	des = malloc(len + 1);
 	if (des == NULL)
 		return (NULL);
 	for (i = 0; src[i]; i++)
