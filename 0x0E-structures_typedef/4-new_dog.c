@@ -36,7 +36,7 @@ char *_strdup(char *src)
 	des = malloc(len + 1);
 	if (des == NULL)
 		return (NULL);
-	for (i = 0; src[i]; i++)
+	for (i = 0; i < len; i++)
 	{
 		des[i] = src[i];
 	}
