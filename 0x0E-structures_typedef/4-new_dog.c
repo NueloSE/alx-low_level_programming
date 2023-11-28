@@ -10,43 +10,46 @@
 
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *mydog;
-	char *dog_name, *owner_name;
-
-	if (name == NULL || owner == NULL)
-		return (NULL);
-	mydog = malloc(sizeof(dog_t));
-	dog_name = malloc(sizeof(name));
-	owner_name = malloc(sizeof(owner));
-
-	if (mydog == NULL || dog_name == NULL || owner_name == NULL)
-		return (NULL);
-	_strcpy(dog_name, name);
-	_strcpy(owner_name, owner);
-	mydog->name = dog_name;
-	mydog->age = age;
-	mydog->owner = owner_name;
-
-	if (mydog == NULL)
-		return (NULL);
-	return (mydog);
-}
-
-/**
- * _strcpy - copies a string from one string to another
- * @src: the source
- * @dest: the destination
- * Return: pointer to the new copy
-*/
-
-char *_strcpy(char *dest, char *src)
-{
+	/*dog_t *mydog, *dog_name, *owner_name;
 	int i;
 
-	for (i = 0; src[i]; i++)
+	mydog = malloc(sizeof(dog_t));
+	if (mydog == NULL)
+		return (NULL);
+	
+	dog_name = malloc(sizeof(name));
+	if (dog_name == NULL)
 	{
-		dest[i] = src[i];
+		free(mydog);
+		return (NULL);
 	}
-	dest[i] = '\0';
-	return (dest);
+	for (i = 0; name[i]; i++)
+		dog_name[i] = name[i];
+	dog_name[i] = '\0';
+	mydog->name = dog_name;
+
+	owner_name = malloc(sizeof(owner));
+	if (owner_name == NULL)
+	{
+		free(dog_name);
+		free(mydog);
+		return (NULL);
+	}
+	for (i = 0; owner[i]; i++)
+		owner_name[i] = owner[i];
+	owner_name[i] = '\0';
+	mydog->owner = owner_name;
+
+	mydog->age = age;
+
+	return (mydog);*/
+
+	dog_t *mydog = malloc(sizeof(dog_t));
+	
+	if (mydog == NULL)
+		return (NULL);
+	mydog->name = strdup(name);
+	mydog->owner = strdup(owner);
+	mydog->age = age;
+	return (mydog);
 }
