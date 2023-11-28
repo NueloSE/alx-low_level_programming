@@ -14,8 +14,19 @@ dog_t *new_dog(char *name, float age, char *owner)
 
 	if (mydog == NULL)
 		return (NULL);
-	mydog->name = strdup(name);
-	mydog->owner = strdup(owner);
+	mydog->name = _strdup(name);
+	if (mydog->name == NULL)
+	{
+		free(mydog);
+		return (NULL);
+	}
+	mydog->owner = _strdup(owner);
+	if (mydog->owner == NULL)
+	{
+		free(mydog->name);
+		free(mydog);
+		return (NULL);
+	}
 	mydog->age = age;
 	return (mydog);
 }
@@ -24,7 +35,7 @@ dog_t *new_dog(char *name, float age, char *owner)
  * _strdup - duplicates a string passed
  * @src: the source string
  * Return: pointer to new string
-
+ */
 
 char *_strdup(char *src)
 {
@@ -42,4 +53,4 @@ char *_strdup(char *src)
 	}
 	des[i] = '\0';
 	return (des);
-}*/
+}
