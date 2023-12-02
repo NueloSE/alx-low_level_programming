@@ -15,7 +15,6 @@ void print_all(const char *format, ...)
 		{'c', handle_char},
 		{'s', handle_string},
 		{'f', handle_float},
-		{0, NULL},
 	};
 	va_start(ap, format);
 
