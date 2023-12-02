@@ -8,7 +8,8 @@
 
 void print_all(const char *format, ...)
 {
-	int i = 0, j = 0;
+	int i = 0, j;
+	char *separator = "";
 	va_list ap;
 	handlers printers[] = {
 		{'i', handle_int},
@@ -21,16 +22,14 @@ void print_all(const char *format, ...)
 	while ((format != NULL) && (format[i]))
 	{
 		j = 0;
-		while (printers[j].str)
-		{
-			if (printers[j].str == format[i])
-			{
-				printers[j].printer(ap);
-				if (format[i + 1] != '\0')
-					printf(", ");
-				break;
-			}
+		while ((j < HANDLER_SIZE) && (printers[j].str != format[i]))
 			j++;
+
+		if (j < HANDLER_SIZE)
+		{
+			printf("%s", separator);
+			printers[j].printer(ap);
+			separator = ", ";
 		}
 		i++;
 	}
@@ -81,8 +80,11 @@ void handle_float(va_list ap)
 void handle_string(va_list ap)
 {
 	char *s = va_arg(ap, char *);
+
 	if (s == NULL)
+	{
 		printf("(nil)");
-	else
-		printf("%s", s);
+		return;
+	}
+	printf("%s", s);
 }
