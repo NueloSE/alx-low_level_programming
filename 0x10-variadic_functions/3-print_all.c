@@ -17,16 +17,13 @@ void print_all(const char *format, ...)
 		{'f', handle_float},
 		{'0', NULL},
 	};
-
-	if (format == NULL)
-		return;
-
+	
 	va_start(ap, format);
 
 	while (format[i])
 	{
 		j = 0;
-		while (printers[j].str != 0)
+		while (printers[j].str != '0')
 		{
 			if (printers[j].str == format[i])
 			{
