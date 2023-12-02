@@ -15,15 +15,14 @@ void print_all(const char *format, ...)
 		{'c', handle_char},
 		{'s', handle_string},
 		{'f', handle_float},
-		{'0', NULL},
+		{0, NULL},
 	};
-	
 	va_start(ap, format);
 
-	while (format[i])
+	while ((format != NULL) && (format[i]))
 	{
 		j = 0;
-		while (printers[j].str != '0')
+		while (printers[j].str)
 		{
 			if (printers[j].str == format[i])
 			{
