@@ -9,7 +9,7 @@
 void print_binary(unsigned long int n)
 {
 	/*size in bits*/
-	int size = sizeof(unsigned int) * 8;
+	unsigned long int size = sizeof(unsigned long int) * 8;
 	int msb_pos, i;
 
 	if (n == 0)
