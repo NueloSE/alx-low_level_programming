@@ -13,6 +13,7 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m);
 int get_endianness(void);
 int _strlen(const char *);
 int char_to_int(char c);
+int _putchar(char c);
 
 
 #endif /*MAIN_H*/
