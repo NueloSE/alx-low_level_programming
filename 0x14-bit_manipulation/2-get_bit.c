@@ -12,6 +12,8 @@ int get_bit(unsigned long int n, unsigned int index)
 	unsigned long int i, size = sizeof(unsigned long int) * 8;
 	int msbp, result = -1;/*msp-most significant bit position*/
 
+	if (index <= size)
+	{
 	for (msbp = size - 1; msbp >= 0; msbp--)
 	{
 		if ((n >> msbp) & 1)
@@ -21,6 +23,7 @@ int get_bit(unsigned long int n, unsigned int index)
 	{
 		if (i == index)
 			result = ((n >> i) & 1);
+	}
 	}
 	return (result);
 }
