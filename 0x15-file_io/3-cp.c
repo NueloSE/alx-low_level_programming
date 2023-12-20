@@ -12,18 +12,20 @@ int copy(char *file_from, char *file_to)
 	char buffer[BUFF_SIZE];
 	int fd_from, fd_to, reading = 0;
 
+	if (file_from == NULL)
+		exit(error_handler(1, 98, file_from));
+	if (file_to == NULL)
+		exit(error_handler(2, 99, file_to));
 	fd_from = open(file_from, O_RDWR);
 	if (fd_from == -1)
 	{
 		exit(error_handler(1, 98, file_from));
 	}
-
 	fd_to = open(file_to, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | 0664);
 	if (fd_to == -1)
 	{
 		exit(error_handler(2, 99, file_to));
 	}
-
 	do {
 		reading = read(fd_from, &buffer, BUFF_SIZE);
 		if (reading == 0)
@@ -37,15 +39,13 @@ int copy(char *file_from, char *file_to)
 			exit(error_handler(2, 99, file_from));
 		}
 	} while (true);
-
-	if (close(fd_to) == -1)
-	{
-		exit(error_handler(3, fd_to, "Error: "));
-	}
-
 	if (close(fd_from) == -1)
 	{
 		exit(error_handler(4, fd_from, "Error: "));
+	}
+	if (close(fd_to) == -1)
+	{
+		exit(error_handler(3, fd_to, "Error: "));
 	}
 	return (0);
 }
@@ -63,16 +63,16 @@ int error_handler(int num, int exit_val, char *filename)
 	switch (num)
 	{
 		case (1):
-			dprintf(STDERR_FILENO, "Error: Can't read from  %s\n", filename);
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 			return (exit_val);
 		case (2):
 			dprintf(STDERR_FILENO, "Error: Can't write to  %s\n", filename);
 			return (exit_val);
 		case (3):
-			dprintf(STDERR_FILENO, "%s: Can't close fd  %d\n", filename, exit_val);
+			dprintf(STDERR_FILENO, "%sCan't close fd  %d\n", filename, exit_val);
 			return (100);
 		case (4):
-			dprintf(STDERR_FILENO, "%s: Can't close fd  %d\n", filename, exit_val);
+			dprintf(STDERR_FILENO, "%sCan't close fd  %d\n", filename, exit_val);
 			return (100);
 	}
 	return (1);
