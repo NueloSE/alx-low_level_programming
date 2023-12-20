@@ -16,7 +16,7 @@ int copy(char *file_from, char *file_to)
 		exit(error_handler(1, 98, file_from));
 	if (file_to == NULL)
 		exit(error_handler(2, 99, file_to));
-	fd_from = open(file_from, O_RDWR);
+	fd_from = open(file_from, O_RDONLY);
 	if (fd_from == -1)
 	{
 		exit(error_handler(1, 98, file_from));
@@ -34,7 +34,7 @@ int copy(char *file_from, char *file_to)
 		{
 			exit(error_handler(1, 98, file_from));
 		}
-		if (write(fd_to, buffer, _strlen(buffer)) == -1)
+		if (write(fd_to, buffer, reading) == -1)
 		{
 			exit(error_handler(2, 99, file_from));
 		}
