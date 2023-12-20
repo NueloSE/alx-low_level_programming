@@ -64,6 +64,7 @@ int main(int ac, char **av)
 	fd_to = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
+		closing(fd_from);
 		exit(error_handler(2, 99, file_to));
 	}
 	do {
@@ -71,9 +72,15 @@ int main(int ac, char **av)
 		if (reading == 0)
 			break;
 		else if (reading == -1)
+		{
+			closing(fd_from), closing(fd_to);
 			exit(error_handler(1, 98, file_from));
+		}
 		if (write(fd_to, buffer, reading) == -1)
+		{
+			closing(fd_from), closing(fd_to);
 			exit(error_handler(2, 99, file_from));
+		}
 	} while (true);
 	closing(fd_from);
 	closing(fd_to);
