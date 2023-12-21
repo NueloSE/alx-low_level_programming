@@ -1,31 +1,23 @@
 #include "main.h"
 
 /**
- * error_handler - prints the appropriate err message
- * @num: case specifier
- * @exit_val: the exit value
+ * print_err - prints error to standard output
+ * @exit_val: exit code
+ * @message: the error message
  * @filename: name of the file
- * Return: the exit value passed
+ * Return: void
 */
 
-int error_handler(int num, int exit_val, char *filename)
+void print_err(int exit_val, char *message, char *filename)
 {
-	switch (num)
-	{
-		case (1):
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
-			return (exit_val);
-		case (2):
-			dprintf(STDERR_FILENO, "Error: Can't write to  %s\n", filename);
-			return (exit_val);
-	}
-	return (1);
+	dprintf(STDERR_FILENO, message, filename);
+	exit(exit_val);
 }
 
 /**
- * closing - closes a file descriptor
- * @fd: the file discriptor
- * Return: the exit value
+ * closing - close a file
+ * @fd: file descriptor
+ * Return: void
 */
 
 void closing(int fd)
@@ -38,51 +30,46 @@ void closing(int fd)
 }
 
 /**
- * main - Entry point for the code
+ * main - Entry point for the program
  * @ac: argument count
- * @av: array of variadic
- * Return: always 0
+ * @argv: list of variadic variables
+ * Return: 0 on success.
+ * Otherwise 97,98,99,100 for argc, read, write and close error respectively
 */
-
-int main(int ac, char **av)
+int main(int ac, char *argv[])
 {
-	char buffer[1024];
-	int fd_from, fd_to, reading = 0;
-	char *file_from, *file_to;
+	char *file_from, *file_to, buffer[BUFF_SIZE];
+	int fd_from, fd_to;
+	ssize_t read_byte, write_byte;
 
 	if (ac != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", av[0]);
-		exit(97);
+		print_err(97, "Usage: cp file_from file_to\n", "");
 	}
-	file_from = av[1], file_to = av[2];
+	file_from = argv[1], file_to = argv[2];
 	fd_from = open(file_from, O_RDONLY);
 	if (fd_from == -1)
-	{
-		exit(error_handler(1, 98, file_from));
-	}
-	fd_to = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+		print_err(98, "Error: Can't read from file %s\n", file_from);
+	fd_to = open(file_to, O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	if (fd_to == -1)
 	{
 		closing(fd_from);
-		exit(error_handler(2, 99, file_to));
+		print_err(99, "Error: Can't write to %s\n", file_to);
 	}
-	do {
-		reading = read(fd_from, &buffer, 1024);
-		if (reading == 0)
-			break;
-		else if (reading == -1)
+	while ((read_byte = read(fd_from, &buffer, BUFF_SIZE)) > 0)
+	{
+		write_byte = write(fd_to, buffer, read_byte);
+		if (read_byte != write_byte)
 		{
 			closing(fd_from), closing(fd_to);
-			exit(error_handler(1, 98, file_from));
+			print_err(99, "Error: Can't write to %s\n", file_to);
 		}
-		if (write(fd_to, buffer, reading) == -1)
-		{
-			closing(fd_from), closing(fd_to);
-			exit(error_handler(2, 99, file_from));
-		}
-	} while (true);
-	closing(fd_from);
-	closing(fd_to);
+	}
+	if (read_byte == -1)
+	{
+		closing(fd_from), closing(fd_to);
+		print_err(98, "Error: Can't read from file %s\n", file_from);
+	}
+	closing(fd_from), closing(fd_to);
 	return (0);
 }
