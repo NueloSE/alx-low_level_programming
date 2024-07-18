@@ -71,5 +71,7 @@ int advanced_binary(int *array, size_t size, int value)
 {
 	size_t start = 0, end = size - 1;
 
+	if (size == 0 || array == NULL)
+		return (-1);
 	return (binary_search3(array, start, end, value));
 }
